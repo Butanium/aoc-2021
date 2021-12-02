@@ -1,0 +1,7 @@
+(library
+ (wrapped false)
+ (name utils)
+ (modules
+  Read
+  )
+ (libraries Str))
