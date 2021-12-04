@@ -5,6 +5,17 @@ let rec aux() =
 in aux()
 
 let get_puzzle_lines day = 
-  readlines @@ Printf.sprintf "Butanium_aoc/puzzle_input/day%d.txt" day
+  readlines @@ Printf.sprintf "puzzle_input/day%d.txt" day
 
-let get_test_lines () = readlines "Butanium_aoc/test.txt"
+let get_test_lines () = readlines "test.txt"
+
+
+let read_whole_file filename =
+  let ch = open_in_bin filename in
+  let s = really_input_string ch (in_channel_length ch) in
+  close_in ch;
+  s
+
+let get_puzzle day = 
+  read_whole_file @@ Printf.sprintf "puzzle_input/day%d.txt" day
+  

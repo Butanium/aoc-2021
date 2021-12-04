@@ -1,5 +1,6 @@
-/external_tools/
+Butanium_aoc/external_tools/
 /_*/
 /.*/
 dune-project
 Butanium_aoc/test.txt
+Butanium_aoc/_build/

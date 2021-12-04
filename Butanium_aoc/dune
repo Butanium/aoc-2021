@@ -1,4 +1,4 @@
 (executables
- (names day2 day3)
+ (names day2 day3 day4)
  (libraries utils)
 )
