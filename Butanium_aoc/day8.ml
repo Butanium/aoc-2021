@@ -15,7 +15,7 @@ let () = Printf.printf "\nResult for day 8, part 1 : %d\n" @@
 
 let map_to_set l = List.map (fun s -> CharSet.of_list @@ Base.String.to_list s) l
 let set_inputs = List.map (fun (l1, l2) -> CharSetSet.of_list @@ map_to_set l1, map_to_set l2) inputs
-(* 
+(* sizes of digits
 0 : 6
 1 : 2 *
 2 : 5
@@ -27,7 +27,6 @@ let set_inputs = List.map (fun (l1, l2) -> CharSetSet.of_list @@ map_to_set l1, 
 8 : 7 *
 9 : 6
 *)
-let debug = ref 0
 let decode input = 
   let numbers = Array.make 10 CharSet.empty in 
   let to_decode, code = input in  
@@ -45,26 +44,20 @@ let decode input =
   | None -> CharSet.choose_opt @@ CharSetSet.fold CharSet.inter (CharSetSet.remove x !to_decode) init) !to_decode None
   in 
   let not_mem c = fun x -> not @@ CharSet.mem c x in 
-  debug := 2;
   assert (1=CharSetSet.cardinal @@ CharSetSet.filter (not_mem f_char) !to_decode);
   numbers.(2) <- find_delete @@ not_mem f_char;
   let size_equal size = (fun x -> CharSet.cardinal x = size) in 
   numbers.(1) <- find_delete @@ size_equal 2;
   numbers.(4) <- find_delete @@ size_equal 4;
-  debug := 4;
   numbers.(7) <- find_delete @@ size_equal 3;
-  debug := 7;
   numbers.(8) <- find_delete @@ size_equal 7;
-  debug := 8;
   let c_char = CharSet.choose @@ CharSet.remove f_char numbers.(1) in 
   let no_c_num = CharSetSet.filter (not_mem c_char) !to_decode in
   let set5 = find_first (size_equal 5) no_c_num in 
   let set6 = find_first (size_equal 6) no_c_num in 
   let equal e = fun x -> x=e in 
   numbers.(5) <- find_delete (equal set5);
-  debug := 5;
   numbers.(6) <- find_delete (equal set6);
-  debug := 6;
   numbers.(3) <- find_delete (size_equal 5);
   numbers.(9) <- find_delete (fun x -> size_equal 4 @@ CharSet.inter numbers.(4) x);
   numbers.(0) <- find_delete @@ Fun.const true;
@@ -79,7 +72,4 @@ let decode input =
     | x :: xs -> aux (times*10) (acc + find_n x *times) xs
   in aux 1 0 @@ List.rev code 
 
-
-(* let () = List.iter (fun x -> Printf.printf "%d\n" @@decode x) set_inputs *)
-let () = Printf.printf "%d\n" @@ List.fold_left (fun acc x -> acc + try decode x with Not_found -> failwith @@ Printf.sprintf "fail at n = %d and s = %s" !debug @@ String.concat "," @@ 
-    List.map (fun x -> String.concat "" @@ List.map Char.escaped @@ List.of_seq @@ CharSet.to_seq x) @@ snd x) 0 set_inputs
+let () = Printf.printf "%d\n" @@ List.fold_left (fun acc x -> acc + decode x) 0 set_inputs
