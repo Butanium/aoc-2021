@@ -27,6 +27,18 @@ let set_inputs = List.map (fun (l1, l2) -> CharSetSet.of_list @@ map_to_set l1, 
 8 : 7 *
 9 : 6
 *)
+(*
+________________ Decode algorithm ________________
+initially known : 1,4,7,8
+find char_f, only char in all but 1 signal
+Known :  1,4,7,8 + 2,  2 is the only without f
+find char_c using 1 : 1	
+Known : 1,2,4,7,8 + 5, 6 because 5 and 6 are the only one without c
+find 3 because it's the last of size 5
+find 9 because it's intersection with 4 is 4
+find 0 because it's the last
+___________________________________________________
+*)
 let decode input = 
   let numbers = Array.make 10 CharSet.empty in 
   let to_decode, code = input in  
