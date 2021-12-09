@@ -18,4 +18,5 @@ let read_whole_file filename =
 
 let get_puzzle day = 
   read_whole_file @@ Printf.sprintf "puzzle_input/day%d.txt" day
-  
+
+let get_test () = read_whole_file "test.txt"
