@@ -4,3 +4,4 @@ I'll post here my progress on [advent of code 2021](https://adventofcode.com/202
 # Contributors
 - **Butanium** : OCaml
 - **supermartruc** : Python
+- **InfRandomness** : C#
