@@ -1,5 +1,5 @@
 let squids = Read.get_puzzle_matrix 11
-(* let squids = Read.get_test_matrix () *)
+
 let simulate squids = 
   let explosion_queue = Queue.create () in 
   let upgrade_squid is_conflict y x squid  = if squid = 9 then (
@@ -19,6 +19,7 @@ let simulate squids =
 
 let rec iter_sim squids times acc = 
   if times = 0 then acc else iter_sim squids (times - 1) (simulate squids + acc)
+
 let squids_copy = Array.map Array.copy squids
 
 let () = Printf.printf "result for day 11 part 1 : %d\n" @@ iter_sim squids_copy 100 0
