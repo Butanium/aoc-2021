@@ -3,5 +3,5 @@ I'll post here my progress on [advent of code 2021](https://adventofcode.com/202
 
 # Contributors
 - **Butanium** : OCaml, days 1..11
-- **supermartruc** : Python days 1..9
+- **supermartruc** : Python, days 1..9
 - **InfRandomness** : C#
