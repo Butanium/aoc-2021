@@ -20,3 +20,16 @@ let get_puzzle day =
   read_whole_file @@ Printf.sprintf "puzzle_input/day%d.txt" day
 
 let get_test () = read_whole_file "test.txt"
+
+let get_input_as_matrix lines = 
+  let len1 = Array.length lines in
+  let len2 = String.length lines.(0) in 
+  Array.init len1 (fun i -> Array.init len2 (fun j -> let s = String.sub lines.(i) j 1  in 
+      try int_of_string s with Failure e -> failwith @@ e ^ " : " ^ s))
+
+let get_puzzle_matrix day = 
+  let lines = Array.of_list @@ get_puzzle_lines day in 
+  get_input_as_matrix lines
+
+let get_test_matrix () = 
+  get_input_as_matrix @@ Array.of_list @@ get_test_lines ()
