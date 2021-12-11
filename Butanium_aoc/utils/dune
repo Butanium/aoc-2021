@@ -3,5 +3,6 @@
  (name utils)
  (modules
   Read
+  Util
   )
  (libraries Str))
