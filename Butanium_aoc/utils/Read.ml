@@ -33,3 +33,5 @@ let get_puzzle_matrix day =
 
 let get_test_matrix () = 
   get_input_as_matrix @@ Array.of_list @@ get_test_lines ()
+
+let split_on_newline = Str.split (Str.regexp_string "\r\n")
