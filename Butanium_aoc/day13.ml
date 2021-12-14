@@ -6,7 +6,7 @@ let dots, instructions = match Str.split (Str.regexp_string "\r\n\r\n") puzzle w
   | x :: y :: [] -> x,y | _ -> failwith "parse failure"
 
 
-let dots = List.map (fun s -> Scanf.sscanf s "%d,%d" (fun x y -> x,y)) @@ Read.split_on_newline dots
+let dots = List.map (fun s -> Scanf.sscanf s "%d,%d" (fun x y -> x,y)) @@ Util.split_on_newline dots
 
 (* let max_x, max_y = List.fold_left (fun (max_x,max_y) (x,y) -> 
     max max_x x, max max_y y) (0,0) dots *)
@@ -17,7 +17,7 @@ let to_string = function Empty -> "." | Full -> "#"
 let is_horizontal_fold = function Horizontal_fold _ -> true | Vertical_fold _ -> false
 let get_coord = function Horizontal_fold x -> x | Vertical_fold y -> y 
 let instructions = List.map (fun s -> Scanf.sscanf s "%c=%d" (fun s d -> 
-    match s with 'x' -> Horizontal_fold d | 'y' -> Vertical_fold d | _ -> failwith "parse failure instructions")) @@ Read.split_on_newline instructions
+    match s with 'x' -> Horizontal_fold d | 'y' -> Vertical_fold d | _ -> failwith "parse failure instructions")) @@ Util.split_on_newline instructions
 
 type paper_sheet = {mutable sizey : int; mutable sizex : int; paper : paper array array}
 let paper_sheet = 

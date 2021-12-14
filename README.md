@@ -4,6 +4,6 @@ I'll post here my progress on [advent of code 2021](https://adventofcode.com/202
 
 ## Contributors
 
-- **Butanium** : OCaml, days 1..13
+- **Butanium** : OCaml, days 1..14
 - **supermartruc** : Python, days 1..13
 - **InfRandomness** : C#, days 1..1
