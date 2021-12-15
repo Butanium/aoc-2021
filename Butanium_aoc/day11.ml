@@ -1,4 +1,4 @@
-let squids = Read.get_puzzle_matrix 11
+let squids = Read.get_puzzle_int_matrix 11
 
 let simulate squids = 
   let explosion_queue = Queue.create () in 
@@ -11,7 +11,7 @@ let simulate squids =
     if Queue.is_empty explosion_queue then
       acc else (
       List.iter (fun (x,y) -> squids.(y).(x) <- (upgrade_squid true) y x squids.(y).(x)) @@
-        Util.get_neigbours (Queue.take explosion_queue) 9 9;
+        Util.get_neighbours 9 9 @@ Queue.take explosion_queue;
       conflicts (acc + 1)
     )
   in 
