@@ -32,7 +32,10 @@ let add_hashtable amount table key  = Hashtbl.replace table key @@ get_or_defaul
 
 let incr_hashtable table key = add_hashtable 1 table key
 
-let int_of_char x = int_of_string @@ Char.escaped x
+let int_of_char x = 
+  try 
+    int_of_string @@ Char.escaped x
+  with Failure e -> raise @@ Failure (Printf.sprintf "%s : %c n'est pas un chiffre" e x) 
 
 let map_matrix f mat = 
   Array.map (fun arr -> Array.map f arr) mat
