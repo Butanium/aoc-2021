@@ -1,6 +1,5 @@
 hinput = open("AOC_txt_16").read()
 
-
 def hex_to_bin(s):
     res = ''
     for ch in s:
@@ -8,18 +7,11 @@ def hex_to_bin(s):
         res += (4 - len(h)) * '0' + h
     return res
 
+def get_version(packet): return int(packet[:3], 2)
 
-def get_version(packet):
-    return int(packet[:3], 2)
+def get_id(packet): return int(packet[3:6], 2)
 
-
-def get_id(packet):
-    return int(packet[3:6], 2)
-
-
-def get_l_type_id(operator):
-    return int(operator[6])
-
+def get_l_type_id(operator): return int(operator[6])
 
 def build_tree(chaine):
     if get_id(chaine) == 4:
@@ -66,32 +58,18 @@ def evaluate(tree):
     packet, length, sub_list = tree
     pid = get_id(packet)
     e_liste = [evaluate(item) for item in sub_list]
-    if pid == 0:
-        return sum(e_liste)
-
+    if pid == 0: return sum(e_liste)
     if pid == 1:
         p = 1
         for k in e_liste:
             p *= k
         return p
-
-    if pid == 2:
-        return min(e_liste)
-
-    if pid == 3:
-        return max(e_liste)
-
-    if pid == 4:
-        return ev(packet)
-
-    if pid == 5:
-        return int(e_liste[0] > e_liste[1])
-
-    if pid == 6:
-        return int(e_liste[0] < e_liste[1])
-
-    if pid == 7:
-        return int(e_liste[0] == e_liste[1])
+    if pid == 2: return min(e_liste)
+    if pid == 3: return max(e_liste)
+    if pid == 4: return ev(packet)
+    if pid == 5: return int(e_liste[0] > e_liste[1])
+    if pid == 6: return int(e_liste[0] < e_liste[1])
+    if pid == 7: return int(e_liste[0] == e_liste[1])
 
 
 # print(get_sum_version(build_tree(hex_to_bin(hinput))))    #Part 1
