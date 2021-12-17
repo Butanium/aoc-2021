@@ -9,12 +9,12 @@ let bound b coord =  0 <= coord && coord <= b
 let bound (x,y) = bound xbound x && bound ybound y
 let (++) = Util.couple_op (+)
 let get_height (x,y) = height_map.(y).(x)
-let neigbours = [0,1;0,-1;1,0;-1,0]
-let get_neigbours p = List.filter bound @@ List.map (fun x -> x ++ p) neigbours
+let neighbours = [0,1;0,-1;1,0;-1,0]
+let get_neighbours p = List.filter bound @@ List.map (fun x -> x ++ p) neighbours
 
 let low_points = Base.Array.foldi height_map ~init:[] ~f:(fun y acc arr -> 
       Base.Array.foldi arr ~init:acc ~f:(fun x acc2 height -> assert (height = get_height (x,y));
-          if List.for_all (fun p -> get_height p > height) @@ get_neigbours (x,y) then 
+          if List.for_all (fun p -> get_height p > height) @@ get_neighbours (x,y) then 
             {x;y;height} :: acc2 else acc2
       )
     )
@@ -36,7 +36,7 @@ let get_basin low_point =
           marked.(y).(x) <- true;
           acc + 1
         )  else acc
-      ) 0 (get_neigbours point) + acc;
+      ) 0 (get_neighbours point) + acc;
   ) in aux 1
 
 let () =  

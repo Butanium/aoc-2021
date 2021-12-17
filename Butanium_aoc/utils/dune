@@ -5,4 +5,4 @@
   Read
   Util
   )
- (libraries Str))
+ (libraries Str base))

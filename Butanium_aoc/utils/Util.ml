@@ -14,9 +14,11 @@ let init_matrix sizey sizex f =
 let matrix_fold f start matrix = 
   Array.fold_left (fun acc x -> Array.fold_left f acc x) start matrix
 
-let bound xbound ybound (x,y) = let bound b coord =  0 <= coord && coord <= b in bound xbound x && bound ybound y
+let bound xbound ybound (x,y) = 
+  let bound b coord =  0 <= coord && coord <= b in 
+  bound xbound x && bound ybound y
 
-let get_neigbours ?(allow_diags = true) p xbound ybound =
+let get_neighbours ?(allow_diags = true) xbound ybound p=
   let bound = bound xbound ybound in
   let (++) = couple_op (+) in
   List.filter bound @@ List.map (fun x -> x ++ p) 
@@ -29,3 +31,14 @@ let get_or_default table key default = match Hashtbl.find_opt table key with Som
 let add_hashtable amount table key  = Hashtbl.replace table key @@ get_or_default table key 0 + amount
 
 let incr_hashtable table key = add_hashtable 1 table key
+
+let int_of_char x = 
+  try 
+    int_of_string @@ Char.escaped x
+  with Failure e -> raise @@ Failure (Printf.sprintf "%s : %c n'est pas un chiffre" e x) 
+
+let map_matrix f mat = 
+  Array.map (fun arr -> Array.map f arr) mat
+
+let iteri_matrix f =
+  Array.iteri (fun y arr -> Array.iteri (fun x e -> f y x e) arr)
