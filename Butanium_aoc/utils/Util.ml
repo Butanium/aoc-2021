@@ -42,3 +42,8 @@ let map_matrix f mat =
 
 let iteri_matrix f =
   Array.iteri (fun y arr -> Array.iteri (fun x e -> f y x e) arr)
+
+type point = {x : int; y : int}
+
+
+let end_string ?(ignore_end=0) s start = String.sub s start (String.length s - start - ignore_end)
