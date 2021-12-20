@@ -21,7 +21,7 @@ let get_puzzle day =
 
 let get_test () = read_whole_file "test.txt"
 
-let get_input_as_matrix lines = 
+let lines_to_matrix lines = 
   let len1 = Array.length lines in
   Array.init len1 (fun i -> Base.String.to_array lines.(i))
 let get_input_as_int_matrix lines = 
@@ -32,14 +32,14 @@ let get_input_as_int_matrix lines =
 
 let get_puzzle_matrix day = 
   let lines = Array.of_list @@ get_puzzle_lines day in 
-  get_input_as_matrix lines
+  lines_to_matrix lines
 
 let get_puzzle_int_matrix day = 
   let lines = Array.of_list @@ get_puzzle_lines day in 
   get_input_as_int_matrix lines
 
 let get_test_matrix () = 
-  get_input_as_matrix @@ Array.of_list @@ get_test_lines ()
+  lines_to_matrix @@ Array.of_list @@ get_test_lines ()
 
 let get_test_int_matrix () =
   get_input_as_int_matrix @@ Array.of_list @@ get_test_lines ()
