@@ -27,7 +27,8 @@ let get_neighbours ?(allow_diags = true) xbound ybound p=
 let split_parts = Str.split (Str.regexp_string "\r\n\r\n")
 let split_on_newline = Str.split (Str.regexp_string "\r\n")
 let get_or_default table key default = match Hashtbl.find_opt table key with Some x -> x | None -> default
-
+let find_or_set_default table key default = match Hashtbl.find_opt table key with Some x -> x 
+  | None -> Hashtbl.replace table key default; default
 let add_hashtable amount table key  = Hashtbl.replace table key @@ get_or_default table key 0 + amount
 
 let incr_hashtable table key = add_hashtable 1 table key
@@ -42,3 +43,8 @@ let map_matrix f mat =
 
 let iteri_matrix f =
   Array.iteri (fun y arr -> Array.iteri (fun x e -> f y x e) arr)
+
+type point = {x : int; y : int}
+
+
+let end_string ?(ignore_end=0) s start = String.sub s start (String.length s - start - ignore_end)
